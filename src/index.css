@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
 /* Base styles that don't conflict with Tailwind */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
