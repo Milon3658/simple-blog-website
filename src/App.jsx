@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='max-w-6xl mx-auto'>
       <Header></Header>
-      <div className='flex flex-col lg:flex-row md:flex-row gap-4 p-4 justify-between '>
+      <div className='flex flex-col-reverse lg:flex-row md:flex-row gap-4 p-4 justify-between '>
         <Blogs></Blogs>
         <Bookmarks></Bookmarks>
       </div>
