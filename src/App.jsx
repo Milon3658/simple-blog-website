@@ -16,6 +16,7 @@ function App() {
     if (!exists) {
       const newBookmarks = [...bookmarks, blog];
       setBookmarks(newBookmarks);
+      toast("Blog bookmarked successfully!");
     } else {
       toast("You have already bookmarked this blog!");
     }

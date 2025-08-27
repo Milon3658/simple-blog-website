@@ -1,9 +1,15 @@
 import PropTypes
     from 'prop-types';
+import { useState } from 'react';
 import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
 const Blog = ({ blog, handleAddBookmark }) => {
+    const [clicked, setClicked] = useState(false);
+
+    const buttonClicked = () => {
+        setClicked(true);
+    }
     console.log(blog);
     return (
         <div>
@@ -19,7 +25,9 @@ const Blog = ({ blog, handleAddBookmark }) => {
                     </div>
                     <div className='flex flex-row items-center'>
                         <span className='ml-2 text-gray-500 mr-2'>{blog.reading_time} min read</span>
-                        <button onClick={() => handleAddBookmark(blog)}><CiBookmark></CiBookmark></button>
+                        <button onClick={() => { handleAddBookmark(blog); buttonClicked() }}>
+                            {clicked ? <FaBookmark /> : <CiBookmark />}
+                        </button>
                     </div>
                 </div>
                 <h2 className="text-xl font-semibold">{blog.title}</h2>
