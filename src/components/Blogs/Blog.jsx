@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
-const Blog = ({ blog, handleAddBookmark, handleReadingTime }) => {
+const Blog = ({ blog, handleAddBookmark, removeBookmarks, markAsRead }) => {
     const [clicked, setClicked] = useState(false);
 
-    const buttonClicked = () => {
-        setClicked(true);
+    const buttonClicked = isClicked => {
+        setClicked(isClicked);
     }
     return (
         <div>
@@ -24,9 +24,16 @@ const Blog = ({ blog, handleAddBookmark, handleReadingTime }) => {
                     </div>
                     <div className='flex flex-row items-center'>
                         <span className='ml-2 text-gray-500 mr-2'>{blog.reading_time} min read</span>
-                        <button onClick={() => { handleAddBookmark(blog); buttonClicked() }}>
-                            {clicked ? <FaBookmark /> : <CiBookmark />}
-                        </button>
+                        {clicked == false ? (
+                            <button onClick={() => { handleAddBookmark(blog); buttonClicked(true) }}>
+                                <CiBookmark />
+                            </button>
+                        ) : (
+                            <button onClick={() => { removeBookmarks(blog.id); buttonClicked(false) }}>
+                                <FaBookmark />
+                            </button>
+                        )}
+
                     </div>
                 </div>
                 <h2 className="text-xl font-semibold">{blog.title}</h2>
@@ -38,7 +45,7 @@ const Blog = ({ blog, handleAddBookmark, handleReadingTime }) => {
                         </span>
                     ))}
                 </div>
-                <button onClick={() => handleReadingTime(blog.reading_time)} className='rounded shadow mt-2 p-2 text-sm cursor-pointer font-bold'><span className='text-purple-500 '>Mark as read</span></button>
+                <button onClick={() => markAsRead(blog.id, blog.reading_time)} className='rounded shadow mt-2 p-2 text-sm cursor-pointer font-bold'><span className='text-purple-500 '>Mark as read</span></button>
             </div>
         </div>
     );
@@ -47,6 +54,8 @@ Blog.propTypes = {
     blog: PropTypes.object.isRequired,
     handleAddBookmark: PropTypes.func,
     handleReadingTime: PropTypes.number,
+    removeBookmarks: PropTypes.func,
+    markAsRead: PropTypes.func
 }
 
 export default Blog;

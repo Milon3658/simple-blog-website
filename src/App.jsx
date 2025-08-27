@@ -25,14 +25,29 @@ function App() {
 
   const handleReadingTime = time => {
     setReadingTime(readingTime + time);
-    console.log('Reading time:', readingTime);
   };
+
+  const removeBookmarks = (id, fromMarksAsRead) => {
+    const myId = bookmarks.find(b => b.id === id);
+    if (myId) {
+      const remaining = bookmarks.filter(bookmark => bookmark.id !== id);
+      setBookmarks(remaining);
+      toast("Bookmark removed successfully!");
+    } else if (fromMarksAsRead == true) {
+      toast("Marked as read!");
+    }
+  }
+
+  const markAsRead = (id, time) => {
+    removeBookmarks(id, true);
+    handleReadingTime(time);
+  }
 
   return (
     <div className='max-w-6xl mx-auto'>
       <Header />
       <div className='flex flex-col-reverse lg:flex-row md:flex-row gap-4 p-4 justify-between '>
-        <Blogs handleAddBookmark={handleAddBookmark} handleReadingTime={handleReadingTime} />
+        <Blogs markAsRead={markAsRead} handleAddBookmark={handleAddBookmark} handleReadingTime={handleReadingTime} removeBookmarks={removeBookmarks} />
         <Bookmarks bookmarks={bookmarks} readingTime={readingTime} />
       </div>
       <Footer />
