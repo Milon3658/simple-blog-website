@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function App() {
 
   const [bookmarks, setBookmarks] = useState([]);
+  const [readingTime, setReadingTime] = useState(0);
 
   const handleAddBookmark = blog => {
     const exists = bookmarks.find(b => b.id === blog.id);
@@ -22,12 +23,17 @@ function App() {
     }
   };
 
+  const handleReadingTime = time => {
+    setReadingTime(readingTime + time);
+    console.log('Reading time:', readingTime);
+  };
+
   return (
     <div className='max-w-6xl mx-auto'>
       <Header />
       <div className='flex flex-col-reverse lg:flex-row md:flex-row gap-4 p-4 justify-between '>
-        <Blogs handleAddBookmark={handleAddBookmark} />
-        <Bookmarks bookmarks={bookmarks} />
+        <Blogs handleAddBookmark={handleAddBookmark} handleReadingTime={handleReadingTime} />
+        <Bookmarks bookmarks={bookmarks} readingTime={readingTime} />
       </div>
       <Footer />
       <ToastContainer position="top-right" autoClose={2000} />

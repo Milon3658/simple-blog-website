@@ -4,13 +4,12 @@ import { useState } from 'react';
 import { CiBookmark } from "react-icons/ci";
 import { FaBookmark } from "react-icons/fa";
 
-const Blog = ({ blog, handleAddBookmark }) => {
+const Blog = ({ blog, handleAddBookmark, handleReadingTime }) => {
     const [clicked, setClicked] = useState(false);
 
     const buttonClicked = () => {
         setClicked(true);
     }
-    console.log(blog);
     return (
         <div>
             <div key={blog.id} className="mb-6 p-4 border rounded shadow cursor-pointer hover:shadow-lg transition-shadow">
@@ -39,6 +38,7 @@ const Blog = ({ blog, handleAddBookmark }) => {
                         </span>
                     ))}
                 </div>
+                <button onClick={() => handleReadingTime(blog.reading_time)} className='rounded shadow mt-2 p-2 text-sm cursor-pointer font-bold'><span className='text-purple-500 '>Mark as read</span></button>
             </div>
         </div>
     );
@@ -46,6 +46,7 @@ const Blog = ({ blog, handleAddBookmark }) => {
 Blog.propTypes = {
     blog: PropTypes.object.isRequired,
     handleAddBookmark: PropTypes.func,
+    handleReadingTime: PropTypes.number,
 }
 
 export default Blog;
